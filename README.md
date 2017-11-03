@@ -28,7 +28,7 @@ To add a course give it a name (this is also the subfolder the script creates to
 organize the courses files) and the course id, which is the long number in the
 url (at the course page: https://elearning.uni-bremen.de/dispatch.php/course/overview?cid=847b6d81388cd9742f31bdc363507bbc) in the form:
 
-```subfolder_name = 01aj19courseid13981938hf```
+```subfolder_name = 847b6d81388cd9742f31bdc363507bbc```
 
 ## Usage
 Run the script with double click or from commandline 
