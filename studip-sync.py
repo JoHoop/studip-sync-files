@@ -1,24 +1,9 @@
-import requests
-import io
-import zipfile
-import os
-import json, configparser
+import requests, io, zipfile, os, configparser
+from lxml import html
 from bs4 import BeautifulSoup as Bs
 
-url_start = 'https://elearning.uni-bremen.de/index.php?again=yes'
-url_course_0 = 'https://elearning.uni-bremen.de/folder.php?cid='
-url_course_checkall = '&data%5Bcmd%5D=all&check_all=TRUE'
-
-url_course_new = '&data%5Bcmd%5D=all&zipnewest='
-
-
-#
-#iphysiclink = 'https://elearning.uni-bremen.de/folder.php?cid=fd0aff595c7bcb432b3268534319241b&cmd=all'
-#allactive = 'https://elearning.uni-bremen.de/folder.php?cid=fd0aff595c7bcb432b3268534319241b&data%5Bcmd%5D=all&check_all=TRUE'
-#downloadnew = 'https://elearning.uni-bremen.de/folder.php?cid=fd0aff595c7bcb432b3268534319241b&data%5Bcmd%5D=all&zipnewest=1509301660'
-#downloadall = 'https://elearning.uni-bremen.de/folder.php?cid=d394384404fa1587ea1001edee7d50a2&data%5Bcmd%5D=all&zipnewest=0000000000'
-#timestamp -> its unix timestamp
-#r_start = requests.get('https://elearning.uni-bremen.de/', auth=(user, password))
+login_url = 'https://elearning.uni-bremen.de/index.php?again=yes'
+course_url = 'https://elearning.uni-bremen.de/dispatch.php/course/files?cid='
 
 cfg = configparser.ConfigParser()
 script_path = os.path.dirname(os.path.abspath(__file__))
@@ -27,38 +12,54 @@ try:
     user = cfg.get('settings', 'user')
     password = cfg.get('settings', 'password')
     path = cfg.get('settings', 'data_folder')
-    timestamp = cfg.get('settings', 'timestamp')
 except Exception as e:
     print('error parsing config file')
     print(e)
 
-#start the session
 session = requests.Session()
-r_start = session.get(url_start)
-p_start = Bs(r_start.content, 'html.parser')
-#login
-inputs = p_start.form.find_all('input')
+login_response = session.get(login_url)
+login_page = Bs(login_response.content, 'html.parser')
+
+inputs = login_page.form.find_all('input')
 data = {}
-for field in inputs:
+for i in inputs:
     try:
-        data[field['name']] = field['value']
+        data[i['name']] = i['value']
     except:
         print('no value attribute')
 data['loginname'] = user
 data['password'] = password
-r_front = session.post(url_start, data=data)
-p_front = Bs(r_front.content, 'html.parser')
-print(p_front.prettify())
+r = session.post(login_url, data=data)
+if(r.status_code == 200):
+    print('login successful')
+else:
+    print('login failed')
 
 for course in cfg.items('courses'):
-    print(course)
-    target = os.path.join(path, course[0])
-    #url_load = url_course_0 + course[1] + url_course_1
-    url_load = url_course_0 + course[1] + url_course_new + timestamp
-    print(url_load)
-    r_load = session.get(url_load)
-    zfile = zipfile.ZipFile(io.BytesIO(r_load.content))
-    zfile.extractall(target)
+    file_target = os.path.join(path, course[0])
+    download_url = course_url + course[1]
+    print(download_url)
 
-    #p_load = Bs(r_load.content, 'html.parser')
-    #print(p_load.prettify())
+    download_page = session.get(download_url)
+    
+    parsed_content = Bs(download_page.content, 'html.parser')
+    security_token = parsed_content.find("input", {"name":"security_token"}).attrs['value']
+    parent_folder_id = parsed_content.find("input", {"name":"parent_folder_id"})
+    post_url = parsed_content.find("form", {"method": "post"}).attrs['action']
+
+    token = {}
+    token['security_token'] = security_token
+    token['parent_folder_id'] = '81d65fb167cc56cff42e8e9f29a6ab0c'
+    
+    r = session.post(post_url, data=token)
+    if(r.status_code == 200):
+        print('post successful')
+    else:
+        print('post failed')
+
+    #p = Bs(r.content, 'html.parser')
+    #file = open("response.html", "w")
+    #file.write(p.prettify())
+    #file.close()
+    z = zipfile.ZipFile(io.BytesIO(r.content))
+    z.extractall(file_target)
