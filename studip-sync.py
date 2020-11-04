@@ -1,6 +1,6 @@
-import requests, io, zipfile, os, configparser
+import requests, io, zipfile, os, configparser, re
 from lxml import html
-from bs4 import BeautifulSoup as Bs
+from bs4 import BeautifulSoup
 
 login_url = 'https://elearning.uni-bremen.de/index.php?again=yes'
 course_url = 'https://elearning.uni-bremen.de/dispatch.php/course/files?cid='
@@ -19,7 +19,7 @@ except Exception as e:
 print('starting session')
 session = requests.Session()
 login_response = session.get(login_url)
-login_page = Bs(login_response.content, 'html.parser')
+login_page = BeautifulSoup(login_response.content, 'html.parser')
 
 inputs = login_page.form.find_all('input')
 data = {}
@@ -43,17 +43,25 @@ for course in cfg.items('courses'):
 
     download_page = session.get(download_url)
     
-    parsed_content = Bs(download_page.content, 'html.parser')
-    security_token = parsed_content.find('input', {'name':'security_token'}).attrs['value']
-    parent_folder_id = parsed_content.find('input', {'name':'parent_folder_id'})
-    post_url = parsed_content.find('form', {'method': 'post'}).attrs['action']
+    parsed_content = BeautifulSoup(download_page.content, 'html.parser')
+    pretty_content = BeautifulSoup(parsed_content.prettify(), 'html.parser')
 
-    print('extracting token')
+    print('extracting post parameters')
+
+    security_token = pretty_content.find('input', {'name':'security_token'}).attrs['value']
+    parent_folder_id = pretty_content.find('input', {'name':'parent_folder_id'}).attrs['value']
+    post_url = pretty_content.find('form', {'method': 'post'}).attrs['action']
+
+    ids = []
+    checkboxes = pretty_content.find_all(id = re.compile('^file_checkbox_'))
+    for checkbox in checkboxes:
+        if(checkbox.attrs['name'] == 'ids[]'):
+            ids.append(checkbox.attrs['value'])
 
     token = {}
     token['security_token'] = security_token
-    token['parent_folder_id'] = '81d65fb167cc56cff42e8e9f29a6ab0c'
-    token['ids[]'] = ['8c54f3199fbb3db4d983111297467017', '72a64f3ae8daec098670592deabcd31a', '4cdce89850aa14b2c8d42b3a6d288da6', '1cfde817c0060d0618ab6384902b8649']
+    token['parent_folder_id'] = parent_folder_id
+    token['ids[]'] = ids
     token['download'] = ''
 
     print('requesting download')
@@ -61,7 +69,7 @@ for course in cfg.items('courses'):
     if(r.status_code != 200):
         print('request failed')
 
-    #p = Bs(r.content, 'html.parser')
+    #p = BeautifulSoup(r.content, 'html.parser')
     #file = open('response.html', 'w')
     #file.write(p.prettify())
     #file.close()
