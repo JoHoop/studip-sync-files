@@ -39,7 +39,7 @@ else:
 for course in cfg.items('courses'):
     file_target = os.path.join(path, course[0])
     download_url = course_url + course[1]
-    print('finding course',course[0],'with cid:',course[1])
+    print('finding course',course[0],'(',course[1],')')
 
     download_page = session.get(download_url)
     
@@ -48,15 +48,11 @@ for course in cfg.items('courses'):
 
     print('extracting post parameters')
 
-    security_token = pretty_content.find('input', {'name':'security_token'}).attrs['value']
-    parent_folder_id = pretty_content.find('input', {'name':'parent_folder_id'}).attrs['value']
-    post_url = pretty_content.find('form', {'method': 'post'}).attrs['action']
-
-    ids = []
-    checkboxes = pretty_content.find_all(id = re.compile('^file_checkbox_'))
-    for checkbox in checkboxes:
-        if(checkbox.attrs['name'] == 'ids[]'):
-            ids.append(checkbox.attrs['value'])
+    security_token = pretty_content.find('input', attrs={'type':'hidden', 'name':'security_token'}).attrs['value']
+    parent_folder_id = pretty_content.find('input', attrs={'type':'hidden', 'name':'parent_folder_id'}).attrs['value']
+    post_url = pretty_content.find('form', attrs={'method': 'post', 'action':re.compile('^https://elearning.uni-bremen.de/dispatch.php/file/bulk/')}).attrs['action']
+    checkboxes =  pretty_content.find_all('input', attrs={'class':'studip-checkbox', 'type':'checkbox', 'name':'ids[]', 'id':re.compile('^file_checkbox_')})
+    ids = list(map(lambda c : c.attrs['value'], checkboxes))
 
     token = {}
     token['security_token'] = security_token
@@ -69,12 +65,6 @@ for course in cfg.items('courses'):
     if(r.status_code != 200):
         print('request failed')
 
-    #p = BeautifulSoup(r.content, 'html.parser')
-    #file = open('response.html', 'w')
-    #file.write(p.prettify())
-    #file.close()
-
     z = zipfile.ZipFile(io.BytesIO(r.content))
     print('extracting zip')
     z.extractall(file_target)
-    print('done')
