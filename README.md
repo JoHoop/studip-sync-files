@@ -1,4 +1,4 @@
-# studip-sync
+# studip-sync-files
 A python script for downloading files from your studip courses. It's designed
 to run for the studip platform of the university of bremen: 
 https://elearning.uni-bremen.de
