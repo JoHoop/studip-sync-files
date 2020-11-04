@@ -29,3 +29,6 @@ url (at the course page: https://elearning.uni-bremen.de/dispatch.php/course/ove
 
 ## Usage
 Run the script by double click or from the command line 
+
+## Credits
+[StudIP_Filename_Cleaner](https://github.com/Schlaurens/StudIP_Filename_Cleaner) courtesy of [Schlaurens](https://github.com/Schlaurens/)
