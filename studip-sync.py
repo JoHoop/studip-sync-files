@@ -68,3 +68,14 @@ for course in cfg.items('courses'):
     z = zipfile.ZipFile(io.BytesIO(r.content))
     print('extracting zip')
     z.extractall(file_target)
+
+    for root, dirs, files in os.walk(file_target):
+        for file in files: 
+            if file == "archive_filelist.csv":
+                os.remove(os.path.join(root, file))
+                continue
+
+            filename = os.path.join(root,file)
+            os.rename(filename, os.path.join(root, re.sub('^[+[0-9]+]_', '', file)))
+            
+    print("cleaned files")
