@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 login_url = 'https://elearning.uni-bremen.de/index.php?again=yes'
 course_url = 'https://elearning.uni-bremen.de/dispatch.php/course/files?cid='
+newest_url = 'https://elearning.uni-bremen.de/dispatch.php/course/files/newest_files?cid='
 
 cfg = configparser.ConfigParser()
 script_path = os.path.dirname(os.path.abspath(__file__))
@@ -11,7 +12,8 @@ cfg.read(os.path.join(script_path,'config.ini'))
 try:
     user = cfg.get('settings', 'user')
     password = cfg.get('settings', 'password')
-    path = cfg.get('settings', 'data_folder')   
+    path = cfg.get('settings', 'data_folder')  
+    new_only = cfg.get('settings', 'new_only')
 except Exception as e:
     print('error parsing config file')
     print(e)
@@ -47,7 +49,6 @@ for course in cfg.items('courses'):
     pretty_content = BeautifulSoup(parsed_content.prettify(), 'html.parser')
 
     print('extracting post parameters')
-
     security_token = pretty_content.find('input', attrs={'type':'hidden', 'name':'security_token'}).attrs['value']
     parent_folder_id = pretty_content.find('input', attrs={'type':'hidden', 'name':'parent_folder_id'}).attrs['value']
     post_url = pretty_content.find('form', attrs={'method': 'post', 'action':re.compile('^https://elearning.uni-bremen.de/dispatch.php/file/bulk/')}).attrs['action']
@@ -59,6 +60,10 @@ for course in cfg.items('courses'):
     token['parent_folder_id'] = parent_folder_id
     token['ids[]'] = ids
     token['download'] = ''
+
+    if(new_only == 'yes'):
+        post_url = newest_url + course[1]
+        token = {}
 
     print('requesting download')
     r = session.post(post_url, data=token)
@@ -76,6 +81,6 @@ for course in cfg.items('courses'):
                 continue
 
             filename = os.path.join(root,file)
-            os.rename(filename, os.path.join(root, re.sub('^[+[0-9]+]_', '', file)))
+            os.replace(filename, os.path.join(root, re.sub('^[+[0-9]+]_', '', file)))
             
     print("cleaned files")
