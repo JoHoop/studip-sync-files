@@ -4,6 +4,8 @@ to run for the studip platform of the university of bremen:
 https://elearning.uni-bremen.de
 But it should be possible to move this to any studip installation by changing
 the urls.
+This version is using Multi-Threading to download, extract & clean all 
+files from your courses at the same time.
 
 ## Setup
 It's just a script no GUI or service files yet. To run it you need to have
@@ -32,3 +34,4 @@ Run the script by double click or from the command line
 
 ## Credits
 [StudIP_Filename_Cleaner](https://github.com/Schlaurens/StudIP_Filename_Cleaner) courtesy of [Schlaurens](https://github.com/Schlaurens/)
+Multi-Threading made by [Jonathan Bröring](https://github.com/jnthn-b) 
