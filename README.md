@@ -33,28 +33,19 @@ url (at the course page: https://elearning.uni-bremen.de/dispatch.php/course/ove
 ```subfolder_name = 847b6d81388cd9742f31bdc363507bbc```
 
 ## Usage
-Run the script by double click or from the command line 
+Run the script by double click or from the command line.
 
-## Credits
-[StudIP_Filename_Cleaner](https://github.com/Schlaurens/StudIP_Filename_Cleaner) courtesy of [Schlaurens](https://github.com/Schlaurens/)
-Multi-Threading made by [Jonathan Bröring](https://github.com/jnthn-b) 
+## Contributors
 
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://jonathan-broering.de"><img src="https://avatars.githubusercontent.com/u/15343360?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Bröring</b></sub></a><br /><a href="https://github.com/JoHoop/studip-sync-files/commits?author=jnthn-b" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/JoHoop"><img src="https://avatars.githubusercontent.com/u/67421398?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jo</b></sub></a></td>
+    <td align="center"><a href="https://github.com/jnthn-b"><img src="https://avatars.githubusercontent.com/u/15343360?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Bröring</b></sub></a></td>
+    <td align="center"><a href="https://github.com/Schlaurens"><img src="https://avatars.githubusercontent.com/u/50379551?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Laurens S.</b></sub></a></td>
+    <td align="center"><a href="https://github.com/tomdolhs"><img src="https://avatars.githubusercontent.com/u/66957274?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tom Dolhs</b></sub></a></td>
+    <td align="center"><a href="https://github.com/ljelschen"><img src="https://avatars.githubusercontent.com/u/34402946?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ljelschen</b></sub></a></td>
+    <td align="center"><a href="https://github.com/lukruh"><img src="https://avatars.githubusercontent.com/u/7965770?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lukas</b></sub></a></td>
   </tr>
 </table>
 
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+Contributions of any kind welcome!
