@@ -1,4 +1,7 @@
 # studip-sync-files
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 A python script for downloading files from your studip courses. It's designed
 to run for the studip platform of the university of bremen: 
 https://elearning.uni-bremen.de
@@ -35,3 +38,23 @@ Run the script by double click or from the command line
 ## Credits
 [StudIP_Filename_Cleaner](https://github.com/Schlaurens/StudIP_Filename_Cleaner) courtesy of [Schlaurens](https://github.com/Schlaurens/)
 Multi-Threading made by [Jonathan Bröring](https://github.com/jnthn-b) 
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://jonathan-broering.de"><img src="https://avatars.githubusercontent.com/u/15343360?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Bröring</b></sub></a><br /><a href="https://github.com/JoHoop/studip-sync-files/commits?author=jnthn-b" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
