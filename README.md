@@ -1,7 +1,4 @@
 # studip-sync-files
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 A python script for downloading files from your studip courses. It's designed
 to run for the studip platform of the university of bremen: 
 https://elearning.uni-bremen.de
