@@ -1,7 +1,7 @@
-# Sync Stup.ID files
+# Download Stup.ID files
 
-A Python script for downloading files from your courses from [elearning.uni-bremen.de](https://elearning.uni-bremen.de).
-This version is using Multi-Threading to download and extract files from all of your courses at the same time.
+A Python script for downloading files from [elearning.uni-bremen.de](https://elearning.uni-bremen.de).
+Using Multi-Threading to download and extract files from multiple courses at the same time.
 
 ## Setup
 1. Install `python3` and the `requests` and `beatifulsoup4` modules, thats all.
