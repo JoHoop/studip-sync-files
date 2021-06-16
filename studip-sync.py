@@ -52,7 +52,7 @@ def getfiles(course):
     download_page = session.get(download_url)
 
     parsed_content = BeautifulSoup(download_page.content, 'html.parser')
-    pretty_content = BeautifulSoup(parsed_content.prettify(), 'html.parser')
+    pretty_content = parsed_content.prettify()
 
     print(course[0], ': extracting post parameters')
     security_token = pretty_content.find('input', attrs={'type': 'hidden', 'name': 'security_token'}).attrs['value']
