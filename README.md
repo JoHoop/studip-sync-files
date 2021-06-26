@@ -5,8 +5,8 @@ Using Multi-Threading to download and extract files from multiple courses at the
 
 ## Setup
 1. Install `python3` and the `requests` and `beatifulsoup4` modules, thats all.
-
-2. In the `config.ini` file
+2. Rename file `config_template.ini` to `config.ini`.
+3. In the `config.ini` file:
 * replace `studip_username` and `studip_password` with your Stup.ID login
 * set the folder for the files to be placed in
 * add the id's of courses you want to download files from
@@ -31,6 +31,7 @@ Run the script from the command line to download the files.
   <tr>
     <td align="center"><a href="https://github.com/JoHoop"><img src="https://avatars.githubusercontent.com/u/67421398?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jo</b></sub></a></td>
     <td align="center"><a href="https://github.com/jnthn-b"><img src="https://avatars.githubusercontent.com/u/15343360?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jonathan Bröring</b></sub></a></td>
+    <td align="center"><a href="https://github.com/gura-ch"><img src="https://avatars.githubusercontent.com/u/21295445?v=4?s=100" width="100px;" alt=""/><br /><sub><b>gura-ch</b></sub></a></td>
     <td align="center"><a href="https://github.com/Schlaurens"><img src="https://avatars.githubusercontent.com/u/50379551?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Laurens S.</b></sub></a></td>
     <td align="center"><a href="https://github.com/tomdolhs"><img src="https://avatars.githubusercontent.com/u/66957274?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tom Dolhs</b></sub></a></td>
     <td align="center"><a href="https://github.com/ljelschen"><img src="https://avatars.githubusercontent.com/u/34402946?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ljelschen</b></sub></a></td>
