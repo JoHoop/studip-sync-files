@@ -52,14 +52,13 @@ def getfiles(course):
     download_page = session.get(download_url)
 
     parsed_content = BeautifulSoup(download_page.content, 'html.parser')
-    pretty_content = parsed_content.prettify()
 
     print(course[0], ': extracting post parameters')
-    security_token = pretty_content.find('input', attrs={'type': 'hidden', 'name': 'security_token'}).attrs['value']
-    parent_folder_id = pretty_content.find('input', attrs={'type': 'hidden', 'name': 'parent_folder_id'}).attrs['value']
-    post_url = pretty_content.find('form', attrs={'method': 'post', 'action': re.compile(
+    security_token = parsed_content.find('input', attrs={'type': 'hidden', 'name': 'security_token'}).attrs['value']
+    parent_folder_id = parsed_content.find('input', attrs={'type': 'hidden', 'name': 'parent_folder_id'}).attrs['value']
+    post_url = parsed_content.find('form', attrs={'method': 'post', 'action': re.compile(
         '^https://elearning.uni-bremen.de/dispatch.php/file/bulk/')}).attrs['action']
-    checkboxes = pretty_content.find_all('input',
+    checkboxes = parsed_content.find_all('input',
                                          attrs={'class': 'studip-checkbox', 'type': 'checkbox', 'name': 'ids[]',
                                                 'id': re.compile('^file_checkbox_')})
     ids = list(map(lambda c: c.attrs['value'], checkboxes))
